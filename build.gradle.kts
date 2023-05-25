@@ -18,22 +18,3 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
-
-publishing {
-    publications {
-        create<MavenPublication>("Sequenced") {
-            groupId = "com.icaras84"
-            artifactId = "sequenced"
-            version = "0.0.1"
-
-            from(components["java"])
-        }
-    }
-
-    repositories {
-        maven {
-            name = "Sequenced"
-            url = uri(layout.buildDirectory.dir("sequenced"))
-        }
-    }
-}
