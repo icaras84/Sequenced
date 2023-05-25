@@ -25,7 +25,7 @@ public class EssWaitFor<T extends Enum<?>> implements EssState {
     }
 
     private boolean test(){
-        return monitoredFlag.getCurrentState().name().equals(targetState.name());
+        return monitoredFlag.getCurrentState().equals(targetState);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.icaras84.core;
 public class EssWait implements EssState {
     private long durationMS;
 
-    private long lastTime = 0L, currTime = 0L, deltaTime = 0L, projectedTime = 0L;
+    private long lastTime = 0L, currTime = 0L, deltaTime = 0L, waitTime = 0L;
 
     /**
      * This state is a special command for the state machine to wait
@@ -28,8 +28,8 @@ public class EssWait implements EssState {
     public void run() {
         currTime = System.currentTimeMillis();
         deltaTime = currTime - lastTime;
-        projectedTime = currTime + deltaTime;
         lastTime = currTime;
+        waitTime += deltaTime;
     }
 
     @Override
@@ -39,14 +39,10 @@ public class EssWait implements EssState {
 
     @Override
     public boolean isFinished() {
-        return currTime + (0.02 * deltaTime) >= durationMS;
+        return waitTime >= durationMS;
     }
 
     public long getDeltaTimeMS(){
         return this.deltaTime;
-    }
-
-    public long getProjectedTimeMS(){
-        return this.projectedTime;
     }
 }
